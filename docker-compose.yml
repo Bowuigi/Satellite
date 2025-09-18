@@ -1,0 +1,19 @@
+name: satellite
+services:
+  app:
+    build: .
+    container_name: app
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    volumes:
+      - ./src:/app
+    depends_on:
+      - database
+  database:
+    image: mariadb:lts-ubi9
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
