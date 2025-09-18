@@ -14,6 +14,7 @@ create table posts (
   parent            UUID,
   author            UUID not null,
   created_at        timestamp not null,
+  content           text not null,
   foreign key (parent) references posts(id),
   foreign key (author) references users(id)
 );
