@@ -5,8 +5,9 @@ create table users (
   id                UUID not null primary key,
   name              text not null,
   password_hash     text not null,
-  description       text,
-  joined_at         timestamp not null
+  joined_at         timestamp not null,
+  default_filter    UUID,
+  foreign key (default_filter) references post_filters(id)
 );
 
 create table posts (
@@ -31,6 +32,7 @@ create table votes (
 create table post_filters (
   id                UUID not null primary key,
   author            UUID not null,
-  normalized_source text not null,
+  condition         text not null,
+  sort_by           text not null,
   foreign key (author) references users(id)
 );
