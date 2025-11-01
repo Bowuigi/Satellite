@@ -1,7 +1,7 @@
 FROM alpine:latest
-RUN apk add php
-USER 1000:1000
+RUN apk --no-cache add php84 php84-pdo_mysql dumb-init
 VOLUME ["/app"]
-EXPOSE 8080/tcp
+EXPOSE 3000/tcp
 WORKDIR /app
-CMD ["/usr/bin/php","-S","0.0.0.0:8080"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["/usr/bin/php84", "-S", "0.0.0.0:3000"]

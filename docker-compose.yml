@@ -1,17 +1,29 @@
 name: satellite
 services:
-  app:
-    build: .
-    container_name: app
+  frontend:
+    image: caddy:latest
     restart: unless-stopped
+    container_name: satellite-frontend
     ports:
-      - 8080:8080
+      - 8080:80
     volumes:
-      - ./src:/app
+      - ./frontend:/usr/share/caddy
+      - ./caddy-config:/etc/caddy
+    depends_on:
+      - backend
+  backend:
+    build: .
+    container_name: satellite-backend
+    restart: unless-stopped
+    volumes:
+      - ./backend:/app
     depends_on:
       - database
+    ports:
+      - 3000:3000
   database:
     image: mariadb:lts-ubi9
+    container_name: satellite-database
     restart: unless-stopped
     environment:
       MARIADB_ROOT_PASSWORD: password
