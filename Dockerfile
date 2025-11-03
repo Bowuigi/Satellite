@@ -1,5 +1,5 @@
 FROM alpine:latest
-RUN apk --no-cache add php84 php84-pdo_mysql dumb-init
+RUN apk --no-cache add php84 php84-pdo_mysql php84-session dumb-init
 VOLUME ["/app"]
 EXPOSE 3000/tcp
 WORKDIR /app
