@@ -51,8 +51,8 @@ Convenientemente, su diseño actual generaliza el concepto de "red social" lo su
 
 - Podman + docker-compose para armar el entorno (es compatible con docker + docker-compose, opcional)
 - MariaDB como base de datos, sin gestor adicional
-- Sin reverse proxy (se usa `php -S localhost:8080` como servidor)
-- PHP como lenguaje principal de backend
+- Caddy como reverse proxy (se usa `php -S localhost:8080` como servidor del backend)
+- PHP como lenguaje para el backend
 - HTML + CSS + JS para el frontend, usando funcionalidades con 90%+ en #link("https://caniuse.com", "Can I use")
 
 #pagebreak()
@@ -72,41 +72,41 @@ use satellite;
 #stack(dir: ltr, spacing: 1fr,  [
 ```sql
 create table users (
-  id                UUID not null primary key,
-  name              text not null,
+  name              text not null primary key,
   password_hash     text not null,
   joined_at         timestamp not null,
   default_filter    UUID,
-  foreign key (default_filter) references post_filters(id)
+  foreign key (default_filter) references post_filters (id)
 );
 
 create table posts (
   id                UUID not null primary key,
   parent            UUID,
-  author            UUID not null,
+  author            text not null,
   created_at        timestamp not null,
   content           text not null,
-  foreign key (parent) references posts(id),
-  foreign key (author) references users(id)
+  foreign key (parent) references posts (id),
+  foreign key (author) references users (name)
 );
 ```
 ], [
 ```sql
 create table votes (
-  post_id           UUID not null,
-  user_id           UUID not null,
+  post              UUID not null,
+  user              text not null,
   is_upvote         boolean not null,
-  foreign key (post_id) references posts(id),
-  foreign key (user_id) references users(id),
-  primary key (post_id, user_id)
+  foreign key (post) references posts(id),
+  foreign key (user) references users(name),
+  primary key (post, user)
 );
 
 create table post_filters (
   id                UUID not null primary key,
-  author            UUID not null,
-  condition         text not null,
+  name              text not null,
+  author            text not null,
+  pf_condition      text not null,
   sort_by           text not null,
-  foreign key (author) references users(id)
+  foreign key (author) references users(name)
 );
 ```
 ])

@@ -3,7 +3,7 @@
 class Database extends PDO {
 	function __construct()  {
 		// NOTE: Hide the password behind an environment variable / secret file in production
-		parent::__construct('mysql:host=127.0.0.1;charset=utf8mb4', 'root', 'password');
+		parent::__construct('mysql:host=database;charset=utf8mb4', 'root', 'password');
 		$this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$this->perform_migrations();
 	}
