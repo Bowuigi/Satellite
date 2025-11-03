@@ -23,7 +23,7 @@ class Database extends PDO {
 			$sth->closeCursor();
 			// Version 0 (nothing) to latest
 			if ($result === "") {
-				$sql = file_get_contents("sql/version0.sql");
+				$sql = file_get_contents("/app/sql/version0.sql");
 				$this->query($sql)->closeCursor();
 			}
 			// No more migrations

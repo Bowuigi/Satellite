@@ -19,7 +19,7 @@ function template_login_signup(bool $is_login /* false on signup */) {
 	  || !preg_match('/^[a-z0-9_\\.]+$/u', $data['username'])
 	  || !preg_match('/^.{6,100}$/u', $data['password'])) {
 		http_response_code(400); // Bad request
-		die('Invalid credentials');
+		die('Credenciales inválidas');
 	}
 
 
@@ -31,16 +31,16 @@ function template_login_signup(bool $is_login /* false on signup */) {
 	if ($is_login) {
 		if (count($account) === 0) {
 			http_response_code(400);
-			die('User not found');
+			die('Usuario no encontrado');
 		}
 
 		if (!password_verify($data['password'], $account[0]['password_hash'])) {
-			die('Incorrect password');
+			die('Contraseña incorrecta');
 		}
 	} else {
 		if (count($account) !== 0) {
 			http_response_code(400);
-			die('User already exists');
+			die('El usuario ya existe');
 		}
 
 		$db->statement(

@@ -6,7 +6,7 @@ function request_data(Callable $fun) {
 
 	if ($json === null && json_last_error() !== JSON_ERROR_NONE) {
 		http_response_code(400);
-		die('Invalid JSON');
+		die('JSON inválido');
 	}
 	try {
 		return $fun($json);
@@ -15,7 +15,7 @@ function request_data(Callable $fun) {
 		if (str_contains($exn->getMessage(), 'Undefined array key')) {
 			http_response_code(400);
 			error_log("Request error: JSON without required fields " . json_encode($json));
-			die('JSON without required fields');
+			die('JSON sin los campos requeridos');
 		}
 	}
 }
