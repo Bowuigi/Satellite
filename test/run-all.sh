@@ -23,3 +23,5 @@ hurl --test auth/signup.hurl
 hurl --test auth/login.hurl
 # Requires user "test" with password "123456"
 hurl --test auth/logout.hurl
+# Requires user "test"
+hurl --test users/list.hurl
