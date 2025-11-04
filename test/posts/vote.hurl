@@ -1,3 +1,13 @@
+# Not logged in
+POST http://localhost:8080/api/posts/vote.php
+{
+  "post": "00000000-0000-0000-0000-000000000000",
+  "stance": "up"
+}
+HTTP 400
+[Asserts]
+body matches /registrado/
+
 # Setup
 POST http://localhost:8080/api/auth/login.php
 {

@@ -1,3 +1,13 @@
+# Not logged in
+POST http://localhost:8080/api/posts/new.php
+{
+  "parent": null,
+  "content": "/api/posts/new.php post test"
+}
+HTTP 400
+[Asserts]
+body matches /registrado/
+
 # Setup
 POST http://localhost:8080/api/auth/login.php
 {

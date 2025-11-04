@@ -17,7 +17,7 @@ class Session {
 		$_SESSION[$key] = $value;
 	}
 
-	public function get(string $key) {
+	public function get(string $key): string|bool|null {
 		return $_SESSION[$key] ?? null;
 	}
 
@@ -34,7 +34,7 @@ class Session {
 	}
 
 	public function isLoggedIn(): bool {
-		return $_SESSION['logged_in'] ?? false;
+		return $this->get('logged_in') ?? false;
 	}
 }
 ?>

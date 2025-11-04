@@ -7,6 +7,11 @@ require_once "/app/lib/uuidv4.php";
 $db = new Database();
 $session = new Session();
 
+if (!$session->isLoggedIn()) {
+	http_response_code(400);
+	die('No registrado');
+}
+
 $data = request_data(function(RequestJSON $json) {
 	return [
 		'post' => $json['post'],
