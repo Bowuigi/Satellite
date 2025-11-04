@@ -17,15 +17,15 @@ podman exec satellite-database \
 
 echo 'Ejecutando pruebas...'
 
-# Creates user "test" with password "123456"
+# auth/signup.hurl creates user "test"
 hurl --test auth/signup.hurl
-# Requires user "test" with password "123456", expects user "nonexistent" to not exist
-hurl --test auth/login.hurl
-# Requires user "test" with password "123456"
-hurl --test auth/logout.hurl
-# Requires user "test"
-hurl --test users/list.hurl
-# Requires user "test", expects user "nonexistent" to not exist
-hurl --test users/view.hurl
-# Requires user "test"
-hurl --test posts/new.hurl
+
+# Every test except auth/signup.hurl requires user "test" with password "123456" and expects user "nonexistent" to not exist
+# posts/*.hurl create new posts
+hurl --test \
+  auth/login.hurl  \
+  auth/logout.hurl \
+  users/list.hurl  \
+  users/view.hurl  \
+  posts/new.hurl   \
+  posts/vote.hurl
