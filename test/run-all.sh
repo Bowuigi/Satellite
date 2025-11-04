@@ -27,3 +27,5 @@ hurl --test auth/logout.hurl
 hurl --test users/list.hurl
 # Requires user "test", expects user "nonexistent" to not exist
 hurl --test users/view.hurl
+# Requires user "test"
+hurl --test posts/new.hurl
