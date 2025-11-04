@@ -16,8 +16,8 @@ function template_login_signup(bool $is_login /* false on signup */) {
 
 	// Server side validation is simple, client-side is nicer to the user
 	if ( !isset($data['username']) || !isset($data['password'])
-	  || !preg_match('/^[a-z0-9_\\.]+$/u', $data['username'])
-	  || !preg_match('/^.{6,100}$/u', $data['password'])) {
+	  || !preg_match('/^[a-z0-9_\\.]{1,50}$/', $data['username'])
+	  || strlen($data['password']) < 6 || strlen($data['password']) > 100) {
 		http_response_code(400); // Bad request
 		die('Credenciales inválidas');
 	}
