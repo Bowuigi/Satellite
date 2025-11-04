@@ -34,14 +34,18 @@ if (!is_null($data['parent'])) {
 	}
 }
 
+$id = uuidv4();
+
 $db->statement(
 	'insert into posts (id, parent, author, created_at, content) values ( :id, :parent, :author, :date, :content )',
 	[
-		'id' => uuidv4(),
+		'id' => $id,
 		'parent' => $data['parent'],
 		'author' => $session->get('username'),
 		'date' => date('Y-m-d h:i:s'),
 		'content' => $data['content'],
 	]
 );
+
+echo json_encode(['id' => $id]);
 ?>

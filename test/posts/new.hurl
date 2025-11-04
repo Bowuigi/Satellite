@@ -41,6 +41,20 @@ body matches /padre no existe/
 POST http://localhost:8080/api/posts/new.php
 {
   "parent": null,
-  "content": "Hello from the test suite!"
+  "content": "/api/posts/new.php post test"
 }
 HTTP 200
+[Asserts]
+jsonpath "$.id" matches /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/
+[Captures]
+parent: jsonpath "$.id"
+
+# Should work
+POST http://localhost:8080/api/posts/new.php
+{
+  "parent": "{{parent}}",
+  "content": "/api/posts/new.php children post test"
+}
+HTTP 200
+[Asserts]
+jsonpath "$.id" matches /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/
