@@ -7,7 +7,7 @@ function template_login_signup(bool $is_login /* false on signup */) {
 	$db = new Database();
 	$session = new Session();
 
-	$data = request_data(function(array $json) {
+	$data = request_data(function(RequestJSON $json) {
 		return [
 			'username' => $json['username'],
 			'password' => $json['password'],
