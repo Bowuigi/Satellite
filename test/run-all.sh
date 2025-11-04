@@ -21,3 +21,5 @@ echo 'Ejecutando pruebas...'
 hurl --test auth/signup.hurl
 # Requires user "test" with password "123456", expects user "nonexistent" to not exist
 hurl --test auth/login.hurl
+# Requires user "test" with password "123456"
+hurl --test auth/logout.hurl

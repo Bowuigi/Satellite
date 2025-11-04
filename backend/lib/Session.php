@@ -32,5 +32,9 @@ class Session {
 		session_unset();
 		session_destroy();
 	}
+
+	public function isLoggedIn(): bool {
+		return $_SESSION['logged_in'] ?? false;
+	}
 }
 ?>

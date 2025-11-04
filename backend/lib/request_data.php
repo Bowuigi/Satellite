@@ -25,8 +25,13 @@ class RequestJSON implements ArrayAccess {
 	}
 }
 
-// Grabs the entire request body, tries to parse it as JSON and uses a callback to extract expected fields
+// Grabs the entire POST request body, tries to parse it as JSON and uses a callback to extract expected fields
 function request_data(callable $fun) {
+	if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+		http_response_code(400);
+		die('Solo se admiten peticiones POST');
+	}
+
 	$body = file_get_contents('php://input');
 	$json = json_decode($body, true);
 
