@@ -10,6 +10,5 @@ HTTP 200
 [Asserts]
 jsonpath "$.name" == "test"
 jsonpath "$.joined_at" matches /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
-jsonpath "$.default_filter" exists
 jsonpath "$.filter_amount" >= 0
 jsonpath "$.filters" != null

@@ -17,9 +17,9 @@ La página inicial de la red social muestra una lista de filtros, que el usuario
 
 Un filtro es un query sencillo cuyo fin es limitar la cantidad de publicaciones mostradas. Permite búsquedas en el texto, filtrar por usuarios particulares, filtrar por cantidad o relación de votos y filtrar por fecha de publicación.
 
-A futuro, permitir a los usuarios ver los resultados de aplicar un filtro en formato JSON sería útil para integrarlo con otros sistemas.
+A futuro (ya no es a futuro desde la separación frontend-backend), permitir a los usuarios ver los resultados de aplicar un filtro en formato JSON sería útil para integrarlo con otros sistemas.
 
-Incluye dos roles: Administrador de bases de datos,con acceso a todo, pero solo desde la base de datos, y usuario, que no puede borrar nada, pero puede usar el servicio normalmente.
+Incluye dos roles: Administrador de bases de datos, con acceso a todo pero solo desde la base de datos, y usuario, que no puede borrar nada, pero puede usar el servicio normalmente.
 
 == Objetivos
 
@@ -75,8 +75,6 @@ create table users (
   name              text not null primary key,
   password_hash     text not null,
   joined_at         timestamp not null,
-  default_filter    UUID,
-  foreign key (default_filter) references post_filters (id)
 );
 
 create table posts (

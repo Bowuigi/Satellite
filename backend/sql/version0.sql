@@ -2,7 +2,6 @@ create table if not exists users (
   name              varchar(50) not null primary key,
   password_hash     text not null,
   joined_at         timestamp not null,
-  default_filter    UUID
 );
 
 create table if not exists posts (
@@ -32,6 +31,3 @@ create table if not exists post_filters (
   sort_by           text not null,
   foreign key (author) references users(name)
 );
-
-alter table users
-  add constraint foreign key (default_filter) references post_filters (id);

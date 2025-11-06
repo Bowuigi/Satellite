@@ -13,7 +13,7 @@ if (!isset($_GET['name']) || $_GET['name'] === '') {
 $db = new Database();
 
 $users = $db->statement(
-	'select joined_at, default_filter from users where name = :name',
+	'select joined_at from users where name = :name',
 	['name' => $_GET['name']]
 );
 
@@ -30,7 +30,6 @@ $filters = $db->statement(
 echo json_encode([
 	'name' => $_GET['name'],
 	'joined_at' => $users[0]['joined_at'],
-	'default_filter' => $users[0]['default_filter'],
 	'filter_amount' => count($filters),
 	'filters' => $filters,
 ]);
