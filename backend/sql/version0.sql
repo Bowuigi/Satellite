@@ -1,7 +1,7 @@
 create table if not exists users (
   name              varchar(50) not null primary key,
   password_hash     text not null,
-  joined_at         timestamp not null,
+  joined_at         timestamp not null
 );
 
 create table if not exists posts (

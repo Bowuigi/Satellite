@@ -48,19 +48,43 @@ class Condition {
 	}
 }
 
+class SortOrder {
+	private const ORDER_MAP = [
+		'latest' => 'created_at desc',
+		'oldest' => 'created_at asc',
+		'upvotes' => 'ifnull(score, 0) desc',
+		'downvotes' => 'ifnull(score, 0) asc',
+	];
+	public readonly string $order;
+	public function __construct(mixed $str) {
+		if (!is_string($str) || !array_key_exists($str, self::ORDER_MAP)) {
+			throw new Exception('Filtro JSON inválido');
+		}
+		$this->order = $str;
+	}
+
+	public function toSQLSortOrder() {
+		return "{$this::ORDER_MAP[$this->order]}, content desc";
+	}
+}
+
 class Filter {
 	private array $conditions = [];
+	private SortOrder $sort_order;
 
-	public function __construct($json) {
+	public function __construct($json, $sort_order) {
 		if (!is_array($json)) {
 			throw new Exception("Filtro JSON inválido");
 		}
-
 		$this->conditions = array_map(fn($c) => new Condition($c), $json);
+		$this->sort_order = new SortOrder($sort_order);
 	}
 
 	public function toArray(): array {
-		return array_map(fn($c) => $c->toArray(), $this->conditions);
+		return [
+			'condition' => array_map(fn($c) => $c->toArray(), $this->conditions),
+			'sort_order' => $this->sort_order->order,
+		];
 	}
 
 	public function toSQLCondition(int $counter = 0) {
@@ -76,8 +100,11 @@ class Filter {
 		return ['sql' => $sql, 'parameters' => $parameters, 'counter' => $counter];
 	}
 
-	public function toSQL() {
+	public function toSQL(string $parent_id) {
 		$conditions = $this->toSQLCondition();
+		$sort_order = $this->sort_order->toSQLSortOrder();
+		$parent_condition = $parent_id === 'NULL' ? "parent is null" : "parent = {$parent_id}";
+
 		return [
 			'sql' => <<<SQL
 with vote_counts as (
@@ -86,7 +113,8 @@ with vote_counts as (
 )
 select p.*, ifnull(vc.score, 0) as score
 from posts as p left join vote_counts as vc on p.id = vc.post
-where {$conditions['sql']}
+where ({$parent_condition}) and ({$conditions['sql']})
+order by {$sort_order}
 SQL
 			,'parameters' => $conditions['parameters'],
 		];
