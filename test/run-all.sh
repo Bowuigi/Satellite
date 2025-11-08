@@ -24,10 +24,11 @@ hurl --test auth/signup.hurl
 # posts/*.hurl create new posts
 # filters/*.hurl creates various filters
 hurl --test \
-  auth/login.hurl   \
-  auth/logout.hurl  \
-  users/list.hurl   \
-  users/view.hurl   \
-  posts/new.hurl    \
-  posts/vote.hurl   \
-  filters/edit.hurl \
+  auth/login.hurl     \
+  auth/logout.hurl    \
+  users/list.hurl     \
+  users/view.hurl     \
+  posts/new.hurl      \
+  posts/vote.hurl     \
+  filters/remove.hurl \
+  filters/edit.hurl   \
