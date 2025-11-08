@@ -42,10 +42,15 @@ function request_data(callable $fun) {
 	try {
 		return $fun(new RequestJSON($json));
 	} catch (Throwable $exn) {
-		if (str_contains($exn->getMessage(), 'JSON')) {
+		if (str_contains($exn->getMessage(), 'JSON key')) {
 			http_response_code(400);
-			error_log("Request error: JSON without required fields " . json_encode($json));
 			die('JSON sin los campos requeridos');
+		} else if (str_contains($exn->getMessage(), 'JSON')) {
+			http_response_code(400);
+			die($exn->getMessage());
+		} else {
+			http_response_code(500);
+			die($exn->getMessage());
 		}
 	}
 }

@@ -22,10 +22,12 @@ hurl --test auth/signup.hurl
 
 # Every test except auth/signup.hurl requires user "test" with password "123456" and expects user "nonexistent" to not exist
 # posts/*.hurl create new posts
+# filters/*.hurl creates various filters
 hurl --test \
-  auth/login.hurl  \
-  auth/logout.hurl \
-  users/list.hurl  \
-  users/view.hurl  \
-  posts/new.hurl   \
-  posts/vote.hurl
+  auth/login.hurl   \
+  auth/logout.hurl  \
+  users/list.hurl   \
+  users/view.hurl   \
+  posts/new.hurl    \
+  posts/vote.hurl   \
+  filters/edit.hurl \
