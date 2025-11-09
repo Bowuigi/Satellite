@@ -2,6 +2,7 @@
 require_once "/app/lib/Database.php";
 require_once "/app/lib/Session.php";
 require_once "/app/lib/request_data.php";
+require_once "/app/lib/is_identifier.php";
 
 $db = new Database();
 $session = new Session();
@@ -23,7 +24,7 @@ if (!isset($_GET['name']) || $_GET['name'] === '') {
 
 $name = $_GET['name'];
 
-if (!preg_match('/^[a-z0-9\-_\\.]{1,50}$/', $name)) {
+if (!is_identifier($name)) {
 	http_response_code(400);
 	die('Nombre inválido');
 }

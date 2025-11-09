@@ -2,6 +2,7 @@
 /*
 * Even though there is a class in this file (ConditionData), the most important part of the module is the CONDITION_MAP variable
 */
+require_once "/app/lib/is_identifier.php";
 
 // Maps condition names to their corresponding validators/parsers, serializers and condition builders
 // Morally a constant, but PHP does not allow constants that depend on runtime values
@@ -39,12 +40,12 @@ define('CONDITION_MAP', [
 		'sql' => fn($p) => "ifnull(score,0) <= {$p}",
 	],
 	'author' => [
-		'set' => fn($s) => ConditionData::validateString($s,fn($u) => preg_match('/^[a-z0-9_\\.]{1,50}$/', $u)),
+		'set' => fn($s) => ConditionData::validateString($s, 'is_identifier'),
 		'json' => fn($v) => $v,
 		'sql' => fn($p) => "author = {$p}",
 	],
 	'not-author' => [
-		'set' => fn($s) => ConditionData::validateString($s,fn($u) => preg_match('/^[a-z0-9_\\.]{1,50}$/', $u)),
+		'set' => fn($s) => ConditionData::validateString($s, 'is_identifier'),
 		'json' => fn($v) => $v,
 		'sql' => fn($p) => "author = {$p}",
 	],

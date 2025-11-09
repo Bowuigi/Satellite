@@ -2,6 +2,7 @@
 require_once "/app/lib/Database.php";
 require_once "/app/lib/Session.php";
 require_once "/app/lib/request_data.php";
+require_once "/app/lib/is_identifier.php";
 
 function template_login_signup(bool $is_login /* false on signup */) {
 	$db = new Database();
@@ -16,7 +17,7 @@ function template_login_signup(bool $is_login /* false on signup */) {
 
 	// Server side validation is simple, client-side is nicer to the user
 	if ( !isset($data['username']) || !isset($data['password'])
-	  || !preg_match('/^[a-z0-9_\\.]{1,50}$/', $data['username'])
+	  || !is_identifier($data['username'])
 	  || strlen($data['password']) < 6 || strlen($data['password']) > 100) {
 		http_response_code(400); // Bad request
 		die('Credenciales inválidas');
