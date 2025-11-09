@@ -23,8 +23,8 @@ if (count($users) !== 1) {
 }
 
 $filters = $db->statement(
-	'select id, name from post_filters where author = :name',
-	['name' => $_GET['name']]
+	'select name from post_filters where author = :author',
+	[ 'author' => $_GET['name'] ]
 );
 
 echo json_encode([
