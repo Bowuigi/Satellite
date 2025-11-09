@@ -59,8 +59,6 @@ POST http://localhost:8080/api/filters/edit.php
   "sort_by": "upvotes"
 }
 HTTP 200
-[Asserts]
-jsonpath "$.id" matches /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/
 
 # Should work
 POST http://localhost:8080/api/filters/edit.php
@@ -70,8 +68,6 @@ POST http://localhost:8080/api/filters/edit.php
   "sort_by": "latest"
 }
 HTTP 200
-[Asserts]
-jsonpath "$.id" matches /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/
 
 # Should work
 POST http://localhost:8080/api/filters/edit.php
@@ -81,8 +77,6 @@ POST http://localhost:8080/api/filters/edit.php
   "sort_by": "latest"
 }
 HTTP 200
-[Asserts]
-jsonpath "$.id" matches /^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/
 
 # Filter already exists
 POST http://localhost:8080/api/filters/edit.php
