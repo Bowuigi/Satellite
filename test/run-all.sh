@@ -34,5 +34,8 @@ hurl --test \
 # filters/edit.hurl creates filters "trending", "none" and "my-posts"
 hurl --test filters/edit.hurl
 
-# Removes filter "none"
+# Expects filters "trending", "none" and "my-posts"
+hurl --test filters/view.hurl
+
+# Removes filter "trending"
 hurl --test filters/remove.hurl
