@@ -31,6 +31,6 @@ echo json_encode([
 	'name' => $_GET['name'],
 	'joined_at' => $users[0]['joined_at'],
 	'filter_amount' => count($filters),
-	'filters' => $filters,
+	'filters' => array_map(fn($f) => $f['name'], $filters),
 ]);
 ?>
