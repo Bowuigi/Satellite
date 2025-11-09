@@ -24,10 +24,10 @@ create table if not exists votes (
 );
 
 create table if not exists post_filters (
-  id                UUID not null primary key,
-  name              text not null,
+  name              varchar(50) not null,
   author            varchar(50) not null,
   pf_condition      text not null,
   sort_by           text not null,
-  foreign key (author) references users(name)
+  foreign key (author) references users(name),
+  primary key (name, author)
 );

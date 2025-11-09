@@ -74,7 +74,7 @@ use satellite;
 create table users (
   name              text not null primary key,
   password_hash     text not null,
-  joined_at         timestamp not null,
+  joined_at         timestamp not null
 );
 
 create table posts (
@@ -99,12 +99,12 @@ create table votes (
 );
 
 create table post_filters (
-  id                UUID not null primary key,
   name              text not null,
   author            text not null,
   pf_condition      text not null,
   sort_by           text not null,
-  foreign key (author) references users(name)
+  foreign key (author) references users(name),
+  primary key (name, author)
 );
 ```
 ])
