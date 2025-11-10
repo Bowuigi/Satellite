@@ -39,3 +39,6 @@ hurl --test filters/view.hurl
 
 # Removes filter "trending"
 hurl --test filters/remove.hurl
+
+# Excpects filters "none" and "my-posts"
+hurl --test view.hurl

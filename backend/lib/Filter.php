@@ -100,23 +100,29 @@ class Filter {
 		return ['sql' => $sql, 'parameters' => $parameters, 'counter' => $counter];
 	}
 
-	public function toSQL(string $parent_id) {
+	// Username is null when not logged in
+	public function toSQL(string|null $parent_id, string|null $username) {
 		$conditions = $this->toSQLCondition();
 		$sort_order = $this->sort_order->toSQLSortOrder();
-		$parent_condition = $parent_id === 'NULL' ? "parent is null" : "parent = {$parent_id}";
 
 		return [
 			'sql' => <<<SQL
 with vote_counts as (
   select post, sum(case when is_upvote then 1 else -1 end) as score
   from votes group by post
+), my_votes as (
+  select post, (case when is_upvote then 'up' else 'down' end) as stance from votes where user <=> :username
+), posts_with_vote_counts as (
+  select p.*, ifnull(vc.score, 0) as score from posts as p left join vote_counts as vc on p.id = vc.post
+), display_posts as (
+  select posts_with_vote_counts.*, ifnull(my_votes.stance, 'none') as stance
+  from posts_with_vote_counts left join my_votes on id = my_votes.post
 )
-select p.*, ifnull(vc.score, 0) as score
-from posts as p left join vote_counts as vc on p.id = vc.post
-where ({$parent_condition}) and ({$conditions['sql']})
+select * from display_posts
+where (parent <=> :parentid) and ({$conditions['sql']})
 order by {$sort_order}
 SQL
-			,'parameters' => $conditions['parameters'],
+			,'parameters' => ['username' => $username, 'parentid' => $parent_id, ...$conditions['parameters']],
 		];
 	}
 }
