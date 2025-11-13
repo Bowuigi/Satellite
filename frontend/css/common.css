@@ -125,9 +125,11 @@ body {
 	background-color: var(--color-accent-dark);
 	color: var(--color-text-light);
 }
+
 .accent-mid {
 	background-color: var(--color-accent-mid);
 }
+
 .accent-muted {
 	background-color: var(--color-bg-light);
 	border: 1px solid var(--color-accent-muted);
@@ -177,4 +179,9 @@ textarea {
 	background-color: hsl(0, 50%, 95%);
 	border: 1px solid hsl(0, 100%, 60%);
 	border-radius: 0.5rem;
+}
+
+.link-like {
+	color: var(--color-accent-dark);
+	background-color: inherit;
 }

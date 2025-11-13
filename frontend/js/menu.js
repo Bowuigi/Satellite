@@ -71,7 +71,7 @@ async function attachMenu() {
 			filterList.style.overflowY = 'scroll';
 			filterList.style.fontSize = '1rem';
 
-			for (filter of me.filters) {
+			for (const filter of me.filters) {
 				element('div', filterList, 'hfill row', container => {
 					container.style.gap = 0;
 					container.style.borderBottom = '1px solid var(--color-border)';
