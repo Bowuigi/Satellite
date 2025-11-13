@@ -167,6 +167,11 @@ button:hover:disabled {
 	cursor: not-allowed;
 }
 
+textarea {
+	resize: vertical;
+	min-height: 3lh;
+}
+
 .error-message {
 	padding: 0.5rem;
 	background-color: hsl(0, 50%, 95%);

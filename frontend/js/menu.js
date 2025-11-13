@@ -26,6 +26,17 @@ async function attachMenu() {
 		menu.style.zIndex = 90;
 		menu.style.display = 'none';
 
+		// Crear publicación
+		element('button', menu, 'hfill p-1 surface elevation-1', users => {
+			users.textContent = 'Nueva publicación';
+			users.style.fontSize = '1rem';
+			users.style.borderBottom = '1px solid var(--color-border)';
+
+			users.addEventListener('click', async() => {
+				window.location.replace('/post.html');
+			})
+		});
+
 		// Lista de usuarios
 		element('button', menu, 'hfill p-1 surface elevation-1', users => {
 			users.textContent = 'Lista de usuarios';
