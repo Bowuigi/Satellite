@@ -78,13 +78,11 @@ POST http://localhost:8080/api/filters/edit.php
 }
 HTTP 200
 
-# Filter already exists
+# Should work
 POST http://localhost:8080/api/filters/edit.php
 {
   "name": "my-posts",
   "condition": [{"author": "test"}],
   "sort_by": "latest"
 }
-HTTP 400
-[Asserts]
-body matches /existe/
+HTTP 200

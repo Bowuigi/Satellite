@@ -34,19 +34,27 @@ $filters = $db->statement(
 	]
 );
 
-if (count($filters) !== 0) {
-	http_response_code(400);
-	die('Ya existe un filtro con ese nombre');
-}
-
 $filter_array = $data['filter']->toArray();
-$db->statement(
-	'insert into post_filters (name, author, pf_condition, sort_by) values (:name, :author, :condition, :sort)',
-	[
-		'name' => $data['name'],
-		'author' => $session->get('username'),
-		'condition' => json_encode($filter_array['condition']),
-		'sort' => "{$filter_array['sort_order']}",
-	]
-);
+
+if (count($filters) !== 0) {
+	$db->statement(
+		'update post_filters set pf_condition = :condition, sort_by = :sort where name = :name and author = :author',
+		[
+			'name' => $data['name'],
+			'author' => $session->get('username'),
+			'condition' => json_encode($filter_array['condition']),
+			'sort' => "{$filter_array['sort_order']}",
+		]
+	);
+} else {
+	$db->statement(
+		'insert into post_filters (name, author, pf_condition, sort_by) values (:name, :author, :condition, :sort)',
+		[
+			'name' => $data['name'],
+			'author' => $session->get('username'),
+			'condition' => json_encode($filter_array['condition']),
+			'sort' => "{$filter_array['sort_order']}",
+		]
+	);
+}
 ?>
