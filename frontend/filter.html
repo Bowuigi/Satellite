@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta content="IE=edge" http-equiv="X-UA-Compatible">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<meta name="color-scheme" content="only light">
+		<link href="css/common.css" media="screen" rel="stylesheet" type="text/css">
+		<title>Satellite - Crear o editar filtro</title>
+	</head>
+	<body>
+		<main class="column center-children hfill vfill-screen">
+			<div class="column surface elevation-4 round-3 p-5" id="fce-container">
+				<h1 id="fce-title" class="text-2xl text-bold text-dark mb-2">Crear o editar filtro</h1>
+				<input placeholder="Nombre del filtro" id="fce-filter" type="text" class="hfill p-2 round-1 elevation-1 text-mid border-mid">
+				<p id="fce-filter-msg" class="error-message"></p>
+				<label for="fce-condition">Condición del filtro</label>
+				<textarea id="fce-condition" class="hfill p-2 round-1 elevation-1 text-mid border-mid">[{"author": "usuario", "contains": "Filtro de ejemplo"}]</textarea>
+				<p id="fce-condition-msg" class="error-message"></p>
+				<label for="fce-sort-order">Órden de publicaciones</label>
+				<select id="fce-sort-order" class="accent-muted p-1 elevation-1">
+					<option selected>latest</option>
+					<option>oldest</option>
+					<option>upvotes</option>
+					<option>downvotes</option>
+				</select>
+				<div class="row hfill flex-space-between">
+					<p id="fce-response-msg" class="error-message"></p>
+					<button type="button" id="fce-next" class="accent-dark accent-dark-hover gray-disabled p-1 round-1 elevation-3 text-bold">Confirmar</button>
+				</div>
+			</div>
+		</main>
+		<script type="text/javascript" src="js/ValidatedInput.js"></script>
+		<script type="text/javascript" src="js/filter.js"></script>
+		<style>
+		#fce-container {
+			max-width: 45rem;
+			width: 90%;
+		}
+		</style>
+	</body>
+</html>
+
