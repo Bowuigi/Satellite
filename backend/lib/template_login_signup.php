@@ -36,6 +36,7 @@ function template_login_signup(bool $is_login /* false on signup */) {
 		}
 
 		if (!password_verify($data['password'], $account[0]['password_hash'])) {
+			http_response_code(400);
 			die('Contraseña incorrecta');
 		}
 	} else {
