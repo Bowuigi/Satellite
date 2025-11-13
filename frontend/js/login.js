@@ -79,7 +79,6 @@ new ValidatedInput({
 			dom.responseMessage.textContent = result;
 			dom.responseMessage.style.display = '';
 		} else {
-			console.log('Success!');
 			window.location.replace('/index.html');
 		}
 	}
