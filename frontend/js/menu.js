@@ -7,7 +7,24 @@ function element(tag, container, classes, callback) {
 
 async function attachMenu() {
 	const me = await fetch('/api/auth/me.php').then(r => r.json());
-	if (!me.logged_in) return;
+	if (!me.logged_in) {
+		// Iniciar sesión
+		element('div', document.body, 'row', container => {
+			container.style.width = 'fit-content';
+			element('button', container, 'p-1 elevation-4 round-1 accent-dark accent-dark-hover', btn => {
+				btn.type = 'button';
+				btn.textContent = "Iniciar sesión";
+				btn.style.fontSize = '12pt';
+				btn.style.position = 'fixed';
+				btn.style.top = '1rem';
+				btn.style.right = '1rem';
+				btn.addEventListener('click', () => {
+					window.location.replace('/login.html');
+				});
+			});
+		})
+		return;
+	}
 
 	// Menu
 	let isMenuOpen = false;
