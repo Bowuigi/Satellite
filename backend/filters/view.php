@@ -7,33 +7,39 @@ require_once "/app/lib/is_identifier.php";
 $db = new Database();
 $session = new Session();
 
-if (!$session->isLoggedIn()) {
-	http_response_code(400);
-	die('No registrado');
-}
-
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 	http_response_code(400);
 	die('Solo se admiten peticiones GET');
 }
 
-if (!isset($_GET['name']) || $_GET['name'] === '') {
+if (!isset($_GET['user']) || $_GET['user'] === '') {
 	http_response_code(400);
-	die('Falta el parámetro query "name"');
+	die('Falta el parámetro query "user"');
 }
 
-$name = $_GET['name'];
-
-if (!is_identifier($name)) {
+if (!isset($_GET['filter']) || $_GET['filter'] === '') {
 	http_response_code(400);
-	die('Nombre inválido');
+	die('Falta el parámetro query "filter"');
+}
+
+$user = $_GET['user'];
+$filter = $_GET['filter'];
+
+if (!is_identifier($user)) {
+	http_response_code(400);
+	die('Nombre de usuario inválido');
+}
+
+if (!is_identifier($filter)) {
+	http_response_code(400);
+	die('Nombre de filtro inválido');
 }
 
 $filters = $db->statement(
 	'select name, author, pf_condition, sort_by from post_filters where name = :name and author = :author',
 	[
-		'name' => $name,
-		'author' => $session->get('username'),
+		'name' => $filter,
+		'author' => $user,
 	]
 );
 
