@@ -26,6 +26,7 @@ hurl --test auth/signup.hurl
 hurl --test \
   auth/login.hurl  \
   auth/logout.hurl \
+  auth/me.hurl     \
   users/list.hurl  \
   users/view.hurl  \
   posts/new.hurl   \
