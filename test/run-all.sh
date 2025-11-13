@@ -43,3 +43,12 @@ hurl --test filters/remove.hurl
 
 # Excpects filters "none" and "my-posts"
 hurl --test view.hurl
+
+echo 'Finalizado. Borrando base de datos...'
+
+# Deletes every value on the database!
+# The backend automatically regenerates the tables
+# Change `podman` to `docker` if the other is preferred
+podman exec satellite-database \
+  mariadb -B -u root --password=password \
+  -e 'drop database if exists satellite;'
